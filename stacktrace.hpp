@@ -381,7 +381,7 @@ namespace markusjx {
              * @param framesToSkip the number of frames to skip
              * @param maxFrames the max number of frames to capture
              */
-            explicit stacktrace(u_long framesToSkip = 0, size_t maxFrames = 128);
+            explicit stacktrace(unsigned long framesToSkip = 0, size_t maxFrames = 128);
 
             /**
              * Copy constructor

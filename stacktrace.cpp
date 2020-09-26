@@ -378,7 +378,7 @@ bool unix_frame::init_using_addr2line(const char *backtrace_sym) {
 
 // stacktrace =========================
 
-stacktrace::stacktrace(STACKTRACE_UNUSED u_long framesToSkip, size_t maxFrames) : frames() {
+stacktrace::stacktrace(STACKTRACE_UNUSED unsigned long framesToSkip, size_t maxFrames) : frames() {
     std::vector<void *> raw_frames(maxFrames, nullptr);
 #ifdef STACKTRACE_WINDOWS
     size_t captured = ::RtlCaptureStackBackTrace(framesToSkip, (u_long) raw_frames.size(),
