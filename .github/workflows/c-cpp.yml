@@ -14,6 +14,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: install binutils-dev and libiberty-dev ubuntu
+      if: ${{ matrix.os }} == 'ubuntu-latest'
+      run: sudo apt-get install binutils-dev libiberty-dev -y
+    - name: install binutils macOs
+      if: ${{ matrix.os }} == 'macOs-latest'
+      run: brew install binutils
     - name: configure
       run: cmake . -B build
     - name: make
