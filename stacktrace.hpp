@@ -294,8 +294,6 @@ namespace markusjx {
 
 #ifdef STACKTRACE_UNIX
 
-#include <link.h>
-
         /**
          * A unix stack frame.
          * Mostly based on this: https://gist.github.com/fmela/591333/c64f4eb86037bb237862a8283df70cdfc25f01d3
