@@ -24,6 +24,6 @@ jobs:
       run: cmake . -B build
     - name: make
       run: cmake --build build
-    - name: run main
-      run: ./main
+    - name: run test
+      run: ./stacktrace
       working-directory: build
