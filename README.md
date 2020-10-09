@@ -43,18 +43,12 @@ project(PROJECT_NAME)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_C_STANDARD 11)
 
-if (NOT WIN32 AND NOT APPLE)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic -g")
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -pedantic -g")
+# If the addr2line library is not used, you must set:
+#set(CMAKE_EXE_LINKER_FLAGS "-rdynamic")
 
-    set(addr2line addr2lineLib/addr2line.c addr2lineLib/addr2line.h addr2lineLib/addr2line.hpp addr2lineLib/addr2line.cpp)
-endif ()
+add_executable(${PROJECT_NAME} main.cpp)
 
-add_executable(${PROJECT_NAME} main.cpp stacktrace.hpp stacktrace.cpp ${addr2line})
-
-if (NOT WIN32 AND NOT APPLE)
-    target_link_libraries(${PROJECT_NAME} PRIVATE bfd dl) # link against libbfd on linux
-elseif (APPLE)
-    target_link_libraries(${PROJECT_NAME} PRIVATE dl)
-endif ()
+# Add this after add_executable or add_library
+include(initStacktrace.cmake)
+initStacktrace(${PROJECT_NAME})
 ```

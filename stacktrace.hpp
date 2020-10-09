@@ -342,7 +342,7 @@ namespace markusjx {
             STACKTRACE_NODISCARD inline std::string toString(bool fullPath) const override;
 
         private:
-#ifndef __APPLE__
+#ifndef STACKTRACE_NO_ADDR2LINE
             /**
              * Try to get the file name, function name and line using the addr2line tool
              *
@@ -353,7 +353,7 @@ namespace markusjx {
 #else
 
             /**
-             * Addr2line on macOs. Static because it only returns false
+             * Addr2line on systems without libbfd. Static because it only returns false
              * and does nothing else
              *
              * @return false. All the time.

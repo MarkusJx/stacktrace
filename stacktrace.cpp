@@ -1,5 +1,5 @@
 #include "stacktrace.hpp"
-#ifndef __APPLE__
+#ifndef STACKTRACE_NO_ADDR2LINE
 #   include "addr2lineLib/addr2line.hpp"
 #endif
 
@@ -361,7 +361,7 @@ STACKTRACE_NODISCARD std::string unix_frame::toString(bool fullPath) const {
 }
 
 bool unix_frame::init_using_addr2line(STACKTRACE_UNUSED const char *backtrace_sym) {
-#ifndef __APPLE__
+#ifndef STACKTRACE_NO_ADDR2LINE
     set_options(true, true, true, nullptr);
 
     addr2line::addr2line_res res = addr2line::processAddress(backtrace_sym);
