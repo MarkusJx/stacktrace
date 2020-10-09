@@ -3,6 +3,21 @@ Stack traces for windows, linux and macOs. Somewhat equal to the implementation 
 Uses an edited version of the addr2line to get line numbers on linux. If you are using linux,
 you must install ``binutils-dev`` and ``libiberty-dev`` in order to compile ``addr2line.c``.
 
+## Creating stack traces
+In order to create a stack trace, you may do:
+```c++
+#include <iostream>
+#include "stacktrace.hpp"
+
+int main() {
+    // Create a stack trace
+    markusjx::stacktrace::stacktrace stacktrace;
+    
+    // Print out the stack trace
+    std::cout << stacktrace;
+}
+```
+
 ## Examples
 On **windows**, stack traces may look like this (built in debug mode):
 ```
