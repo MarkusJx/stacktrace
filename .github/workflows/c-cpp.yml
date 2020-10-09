@@ -1,7 +1,12 @@
 name: C/C++ CI
 
 on:
-  push
+  push:
+    paths-ignore:
+      - 'README.md'
+      - 'LICENSE'
+      - 'docs/**'
+      - '.gitignore'
 
 jobs:
   build:
