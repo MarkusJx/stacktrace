@@ -43,7 +43,14 @@ project(PROJECT_NAME)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_C_STANDARD 11)
 
-# If the addr2line library is not used, you must set:
+# On linux (and gcc) set the -g option to print
+# proper function names
+if (NOT WIN32 AND NOT APPLE)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g")
+endif ()
+
+# If the addr2line library is not used, you must:
 #set(CMAKE_EXE_LINKER_FLAGS "-rdynamic")
 
 add_executable(${PROJECT_NAME} main.cpp)
