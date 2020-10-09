@@ -18,7 +18,7 @@ if (NOT WIN32 AND NOT APPLE)
     #endif ()
 endif ()
 
-add_executable(stacktrace main.cpp stacktrace.hpp stacktrace.cpp ${addr2line})
+add_executable(stacktrace main.cpp stacktrace.hpp stacktrace.cpp ${addr2line} test.cpp test.hpp)
 
 if (NOT WIN32 AND NOT APPLE)
     target_link_libraries(stacktrace PRIVATE bfd dl)
