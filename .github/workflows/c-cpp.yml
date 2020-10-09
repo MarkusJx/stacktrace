@@ -31,5 +31,5 @@ jobs:
     - name: run test windows
       run: stacktrace.exe
       if: matrix.os == 'windows-latest'
-      working-directory: build
+      working-directory: build/Debug
       shell: cmd
