@@ -15,6 +15,8 @@ int main() {
     
     // Print out the stack trace
     std::cout << stacktrace;
+    
+    return 0;
 }
 ```
 
