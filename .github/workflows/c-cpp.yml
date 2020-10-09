@@ -10,7 +10,7 @@ jobs:
   
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest, windows-latest, macOs-latest]
 
     steps:
     - uses: actions/checkout@v2
@@ -24,9 +24,9 @@ jobs:
       run: cmake . -B build
     - name: make
       run: cmake --build build
-    - name: run test ubuntu
+    - name: run test unix
       run: ./stacktrace
-      if: matrix.os == 'ubuntu-latest'
+      if: matrix.os == 'ubuntu-latest' || matrix.os == 'macOs-latest'
       working-directory: build
     - name: run test windows
       run: stacktrace.exe
