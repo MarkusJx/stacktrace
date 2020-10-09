@@ -1,5 +1,7 @@
 #include "stacktrace.hpp"
-#include "addr2lineLib/addr2line.hpp"
+#ifndef __APPLE__
+#   include "addr2lineLib/addr2line.hpp"
+#endif
 
 #include <sstream>
 #include <algorithm>
@@ -358,20 +360,24 @@ STACKTRACE_NODISCARD std::string unix_frame::toString(bool fullPath) const {
     }
 }
 
-bool unix_frame::init_using_addr2line(const char *backtrace_sym) {
+bool unix_frame::init_using_addr2line(STACKTRACE_UNUSED const char *backtrace_sym) {
+#ifndef __APPLE__
     set_options(true, true, true, nullptr);
 
     addr2line::addr2line_res res = addr2line::processAddress(backtrace_sym);
-    if (res.status == 0 && res.info.size() > 0) {
+    if (res.status == 0 && !res.info.empty()) {
         this->function = res.info[0].name;
         this->fullFile = res.info[0].filename;
         this->file = res.info[0].basename;
         this->line = res.info[0].line;
 
-        return function.size() > 0 && file.size() > 0 && fullFile.size() > 0;
+        return !function.empty() && !file.empty() && !fullFile.empty();
     } else {
         return false;
     }
+#else
+    return false;
+#endif
 }
 
 #endif //Unix

@@ -316,8 +316,8 @@ namespace markusjx {
              * @param line the line
              * @param address the address
              */
-            unix_frame(const std::string &function, const std::string &fullFile, const std::string &file, size_t line,
-                       const void *address);
+            STACKTRACE_UNUSED unix_frame(const std::string &function, const std::string &fullFile,
+                                         const std::string &file, size_t line, const void *address);
 
             /**
              * Copy constructor
@@ -342,6 +342,7 @@ namespace markusjx {
             STACKTRACE_NODISCARD inline std::string toString(bool fullPath) const override;
 
         private:
+#ifndef __APPLE__
             /**
              * Try to get the file name, function name and line using the addr2line tool
              *
@@ -349,6 +350,17 @@ namespace markusjx {
              * @return true, if the operation was successful
              */
             bool init_using_addr2line(const char *backtrace_sym);
+#else
+
+            /**
+             * Addr2line on macOs. Static because it only returns false
+             * and does nothing else
+             *
+             * @return false. All the time.
+             */
+            static bool init_using_addr2line(const char *);
+
+#endif
         };
 
 #endif //Unix

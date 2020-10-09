@@ -4,6 +4,7 @@
 #include "addr2line.h"
 #include <vector>
 #include <map>
+#include <string>
 
 namespace addr2line {
     /**
@@ -99,6 +100,12 @@ namespace addr2line {
      */
     address_map processAddressArray(void **addr, int naddr);
 
+    /**
+     * Process an address string created by backtrace_symbols
+     *
+     * @param addr the address string
+     * @return a addr2line_res
+     */
     addr2line_res processAddress(const char *addr);
 }
 

@@ -44,10 +44,17 @@
  *      2: out of memory
  */
 
+#define PACKAGE "stacktrace-lib"
+#define PACKAGE_VERSION "1"
+
 #include <stdlib.h>
 #include <bfd.h>
-#include <libiberty/demangle.h>
+#include <stdio.h>
 #include <memory.h>
+
+#ifndef __APPLE__
+#   include <libiberty/demangle.h>
+#endif
 
 #include "addr2line.h"
 
@@ -60,6 +67,14 @@
 #define ERR_ALLOCATION 2
 
 #define bfd_section_flags(section) section->flags
+
+#ifdef __APPLE__
+#   define bfd_section_vma(abfd, section) bfd_section_vma(section)
+#   define bfd_section_size(abfd, section) bfd_section_size(section)
+#   define DMGL_PARAMS (1 << 0)
+#   define DMGL_ANSI (1 << 1)
+#   define DMGL_NO_RECURSE_LIMIT (1 << 18)
+#endif
 
 static bfd_boolean unwind_inlines;    /* -i, unwind inlined functions. */
 static bfd_boolean do_demangle;        /* -C, demangle names.  */
@@ -383,6 +398,7 @@ void set_options(int _unwind_inlines, int no_recurse_limit, int demangle, const 
     }
     do_demangle = demangle;
 
+#ifndef __APPLE__
     if (demangling_style != NULL) {
         enum demangling_styles style;
 
@@ -392,6 +408,7 @@ void set_options(int _unwind_inlines, int no_recurse_limit, int demangle, const 
         else
             cplus_demangle_set_style(style);
     }
+#endif
 }
 
 const char *bfd_getError() {
