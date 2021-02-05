@@ -30,11 +30,11 @@ jobs:
     - name: make
       run: cmake --build build
     - name: run test unix
-      run: ./stacktrace
+      run: ./stacktrace_test
       if: matrix.os == 'ubuntu-latest' || matrix.os == 'macOs-latest'
       working-directory: build
     - name: run test windows
-      run: stacktrace.exe
+      run: stacktrace_test.exe
       if: matrix.os == 'windows-latest'
       working-directory: build/Debug
       shell: cmd
