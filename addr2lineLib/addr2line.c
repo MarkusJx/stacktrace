@@ -68,7 +68,7 @@
 
 #define bfd_section_flags(section) section->flags
 
-#ifndef __APPLE__
+#ifdef ADDR2LINE_LIB_DEFINE_BFD_WRAPPERS
 #   define bfd_section_vma(abfd, section) bfd_section_vma(section)
 #   define bfd_section_size(abfd, section) bfd_section_size(section)
 #   define DMGL_PARAMS (1 << 0)
