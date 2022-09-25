@@ -3,7 +3,6 @@
 #   include "addr2lineLib/addr2line.hpp"
 #endif
 
-#include <sstream>
 #include <algorithm>
 #include <iomanip>
 
